@@ -3366,6 +3366,7 @@ input, select, textarea {
 	}
 
 
+/* FL CUSTOM */
 .box.highlight .image img {
     max-width: 100%;
     height: auto;
@@ -3376,5 +3377,11 @@ input, select, textarea {
     .box.highlight {
         text-align: center;
         padding-left: 0;
+    }
+}
+
+@media screen and (max-width: 736px) {
+    #cta h3 br {
+        display: none;
     }
 }
