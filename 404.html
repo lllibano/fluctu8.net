@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FLUCTU8</title>
+    
+    <meta name="apple-itunes-app" content="app-id=YOUR_APP_STORE_ID, app-argument=https://fluctu8.net">
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f2f2f7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 80%;
+        }
+        h1 { font-size: 24px; margin-bottom: 10px; }
+        p { color: #666; margin-bottom: 30px; }
+        .btn {
+            background-color: #007AFF;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 18px;
+            display: inline-block;
+        }
+    </style>
+
+    <script>
+        // 2. DYNAMIC LOGIC
+        window.onload = function() {
+            // Get the current path (e.g., "/velvet/event/123")
+            var path = window.location.pathname;
+            
+            // Construct the Universal Link (HTTPS)
+            var universalLink = "https://fluctu8.net" + path;
+            
+            // Construct the Custom Scheme Link (fluctu8://)
+            // This replaces "https://" with "fluctu8://"
+            // Result: "fluctu8://fluctu8.net/velvet/event/123" OR "fluctu8://velvet/event/123"
+            // Let's strip the domain to keep it simple: "fluctu8:/<path>"
+            var customSchemeLink = "fluctu8:/" + path;
+
+            // Update the Smart Banner meta tag dynamically so the "Open" button passes the correct data
+            var meta = document.querySelector('meta[name="apple-itunes-app"]');
+            if (meta) {
+                var content = meta.getAttribute('content');
+                // Update app-argument with the full URL
+                meta.setAttribute('content', content.replace('app-argument=https://fluctu8.net', 'app-argument=' + universalLink));
+            }
+
+            // Update the button to use the Custom Scheme (Force Open)
+            document.getElementById('open-btn').href = customSchemeLink;
+            
+            // Optional: Auto-redirect attempt (often blocked by modern browsers, but worth a try)
+            // window.location.href = customSchemeLink;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>View in App</h1>
+        <p>This content is best viewed in the Velvet app.</p>
+        <a id="open-btn" href="#" class="btn">Open App</a>
+    </div>
+</body>
+</html>
