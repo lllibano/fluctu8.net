@@ -7,7 +7,7 @@
         "paths": [ "/velvet/event/*", "/velvet/bundle/*" ]
       },
       {
-        "appID": "2PUBYSG6JG.net.fluctu8.te2hospitality",
+        "appID": "2PUBYSG6JG.net.fluctu8.velvet.te2hospitality",
         "paths": [ "/te2hospitality/event/*", "/te2hospitality/bundle/*" ]
       }
     ]
