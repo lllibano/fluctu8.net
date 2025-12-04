@@ -41,33 +41,45 @@
     </style>
 
     <script>
-        // 2. DYNAMIC LOGIC
         window.onload = function() {
-            // Get the current path (e.g., "/velvet/event/123")
-            var path = window.location.pathname;
-            
-            // Construct the Universal Link (HTTPS)
+            var path = window.location.pathname; // e.g. "/velvet/event/123"
             var universalLink = "https://fluctu8.net" + path;
             
-            // Construct the Custom Scheme Link (fluctu8://)
-            // This replaces "https://" with "fluctu8://"
-            // Result: "fluctu8://fluctu8.net/velvet/event/123" OR "fluctu8://velvet/event/123"
-            // Let's strip the domain to keep it simple: "fluctu8:/<path>"
-            var customSchemeLink = "fluctu8:/" + path;
+            // 1. DETERMINE SCHEME BASED ON PATH PREFIX
+            var customSchemePrefix = "fluctu8-velvet"; // Default
+            
+            if (path.includes("/te2hospitality/")) {
+                customSchemePrefix = "fluctu8-te2";
+            } 
+            // Add more else-ifs here for future clients
+            // else if (path.includes("/client-c/")) { ... }
 
-            // Update the Smart Banner meta tag dynamically so the "Open" button passes the correct data
+            // 2. CONSTRUCT THE LINK
+            // Result: "fluctu8-velvet://velvet/event/123"
+            // Note: We strip the leading slash from path to avoid double slashes if desired, 
+            // but "fluctu8-velvet://velvet/..." is safer than "fluctu8-velvet:///velvet..."
+            var customSchemeLink = customSchemePrefix + ":/" + path;
+
+            // 3. UPDATE SMART BANNER (Apple Native)
             var meta = document.querySelector('meta[name="apple-itunes-app"]');
             if (meta) {
+                // Ideally, you'd also dynamically switch the 'app-id' here if you want 
+                // the native Safari banner to match the specific app.
+                // But for now, let's just fix the argument.
                 var content = meta.getAttribute('content');
-                // Update app-argument with the full URL
                 meta.setAttribute('content', content.replace('app-argument=https://fluctu8.net', 'app-argument=' + universalLink));
             }
 
-            // Update the button to use the Custom Scheme (Force Open)
-            document.getElementById('open-btn').href = customSchemeLink;
+            // 4. UPDATE THE BLUE BUTTON
+            var btn = document.getElementById('open-btn');
+            btn.href = customSchemeLink;
             
-            // Optional: Auto-redirect attempt (often blocked by modern browsers, but worth a try)
-            // window.location.href = customSchemeLink;
+            // Update text to be specific
+            if (path.includes("/te2hospitality/")) {
+                document.querySelector('h1').innerText = "Open TE2 Hospitality";
+            } else {
+                document.querySelector('h1').innerText = "Open Velvet";
+            }
         }
     </script>
 </head>
