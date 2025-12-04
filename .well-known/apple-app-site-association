@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "2PUBYSG6JG.net.fluctu8.velvet",
+        "paths": [ "/velvet/event/*", "/velvet/bundle/*" ]
+      },
+      {
+        "appID": "2PUBYSG6JG.net.fluctu8.te2hospitality",
+        "paths": [ "/te2hospitality/event/*", "/te2hospitality/bundle/*" ]
+      }
+    ]
+  }
+}
